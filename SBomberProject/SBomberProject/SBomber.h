@@ -7,12 +7,13 @@
 #include "Bomb.h"
 #include "Ground.h"
 #include "Tank.h"
+#include "MyTools.h"
 
 class SBomber
 {
 public:
 
-    SBomber();
+    SBomber(MyTools :: InterLog& logger);
     ~SBomber();
     
     inline bool GetExitFlag() const { return exitFlag; }
@@ -50,4 +51,5 @@ private:
     uint64_t startTime, finishTime, passedTime;
     uint16_t bombsNumber, deltaTime, fps;
     int16_t score;
+    MyTools::InterLog& logger;
 };

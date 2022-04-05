@@ -12,7 +12,7 @@
 using namespace std;
 using namespace MyTools;
 
-SBomber::SBomber()
+SBomber::SBomber(InterLog& logger)
     : exitFlag(false),
     startTime(0),
     finishTime(0),
@@ -20,8 +20,10 @@ SBomber::SBomber()
     passedTime(0),
     fps(0),
     bombsNumber(10),
-    score(0)
+    score(0),
+    logger{logger}
 {
+    
     LogSingleton :: getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
 
     Plane* p = new Plane;

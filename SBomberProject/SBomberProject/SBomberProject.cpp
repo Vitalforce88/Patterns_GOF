@@ -11,9 +11,10 @@ using namespace std;
 
 int main(void)
 {
-    MyTools::LogSingleton::getInstance().OpenLogFile("log.txt");
+    MyTools::ProxyLog logger{ MyTools::LogSingleton::getInstance() };
+    logger.OpenLogFile("log.txt");
 
-    SBomber game;
+    SBomber game{logger};
 
     do {
         game.TimeStart();

@@ -16,7 +16,7 @@ using namespace std;
 
 namespace MyTools {
 
-    ofstream logOut;
+    
 
     //=============================================================================================
 
@@ -69,7 +69,7 @@ namespace MyTools {
     }
 
     //=============================================================================================
-    // –еализаци€(объ€вление) дл€ функций, объ€вленных в классе LogSingleton :
+    //LogSingleton :
 
     void __fastcall LogSingleton :: OpenLogFile(const string& FN)
     {
@@ -84,15 +84,15 @@ namespace MyTools {
         }
     }
 
-    string  GetCurDateTime()
-    {
+    string LogSingleton :: GetCurDateTime(){
+
         auto cur = std::chrono::system_clock::now();
         time_t time = std::chrono::system_clock::to_time_t(cur);
         char buf[64] = { 0 };
         ctime_s(buf, 64, &time);
         buf[strlen(buf) - 1] = '\0';
         return string(buf);
-    }
+    };
 
     void __fastcall LogSingleton :: WriteToLog(const string& str)
     {
@@ -119,6 +119,37 @@ namespace MyTools {
     }
 
     //=============================================================================================
+    //Proxy:
+    ProxyLog :: ~ProxyLog() {
+        cout << "messages count : " << counter << endl;
+    }
 
+    void __fastcall ProxyLog :: OpenLogFile(const string& FN)
+    {
+        logger.OpenLogFile(FN);
+    }
+
+    void ProxyLog :: CloseLogFile()
+    {
+        logger.CloseLogFile();
+    }
+
+    void __fastcall ProxyLog :: WriteToLog(const string& str)
+    {
+        logger.WriteToLog(str);
+        ++counter;
+    }
+
+    void __fastcall ProxyLog :: WriteToLog(const string& str, int n)
+    {
+        logger.WriteToLog(str, n);
+        ++counter;
+    }
+
+    void __fastcall ProxyLog :: WriteToLog(const string& str, double d)
+    {
+        logger.WriteToLog(str, d);
+        ++counter;
+    }
 
 } // namespace MyTools
